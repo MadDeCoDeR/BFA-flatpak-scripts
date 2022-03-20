@@ -1,0 +1,19 @@
+{
+    "name": "openal-beta",
+    "buildsystem": "cmake",
+    "no-autogen": true,
+    "config-opts": [
+        "-DCMAKE_BUILD_TYPE=Release"
+    ],
+    "sources": [
+    {
+        "type": "git",
+        "url": "https://github.com/MadDeCoDeR/openal-soft.git",
+        "tag": "1.21.1-BFA"
+    }
+    ],
+    "cleanup": [
+        "/bin/al*",
+        "/bin/openal*"
+    ]
+}

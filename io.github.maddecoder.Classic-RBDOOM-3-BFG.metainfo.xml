@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="desktop">
+  <id>io.github.maddecoder.Classic-RBDOOM-3-BFG</id>
+  <name>Doom BFA</name>
+  <summary>Doom BFA is a Doom 3 BFG GPL source port</summary>
+  <project_license>GPL-3.0</project_license>
+
+  <developer_name>MadDecoDeR</developer_name>
+  <update_contact>N/A</update_contact>
+
+  <url type="help">https://github.com/maddecoder/Classic-RBDOOM-3-BFG/wiki</url>
+  <url type="bugtracker">https://github.com/maddecoder/Classic-RBDOOM-3-BFG/issues</url>
+
+  <launchable type="desktop-id">io.github.maddecoder.Classic-RBDOOM-3-BFG.desktop</launchable>
+
+  <description>
+      <p>DOOM BFA is a DOOM 3: BFG Edition source port Based on RBDoom3BFG.</p>
+      <p>If it fails to open try to use the launch argument +set fs_basepath</p>
+      <p>To install Open platform put the Open Platform .so file on either the game's or the save folder's (~/.doombfa) base folder.
+        And the companion .so file on the ~/.doombfa/base/lib folder along side with any additional file that is required</p>
+  </description>
+
+  <screenshots>
+  </screenshots>
+
+  <releases>
+    <release version="1.2.9" date="TBA"/>
+  </releases>
+
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-realistic">intense</content_attribute>
+    <content_attribute id="violence-bloodshed">intense</content_attribute>
+    <content_attribute id="violence-desecration">intense</content_attribute>
+    <content_attribute id="social-chat">intense</content_attribute>
+    <content_attribute id="social-audio">intense</content_attribute>
+  </content_rating>
+</component>
+
