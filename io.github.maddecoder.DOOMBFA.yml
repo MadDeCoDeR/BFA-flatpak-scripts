@@ -11,8 +11,8 @@ finish-args:
 - --share=ipc
 - --share=network
 - --socket=pulseaudio
-- --filesystem=home:ro
-- --filesystem=~/.doombfa
+- --filesystem=~/.var/app:ro
+- --filesystem=home
 
 cleanup:
 - /include
@@ -29,7 +29,6 @@ modules:
   no-make-install: true
   config-opts:
    - -DCMAKE_BUILD_TYPE=Retail
-   - -DUSE_PRECOMPILED_HEADERS=OFF
    - -DSDL2=ON
    - -DPACKAGED=ON
    - -DFFMPEG_AVCODEC_INCLUDE_DIR=/app/include
