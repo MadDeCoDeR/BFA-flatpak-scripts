@@ -40,7 +40,7 @@ modules:
    - -DOPENAL_FOUND=true
    - -DOPENAL_INCLUDE_DIR=/app/include
    - -DOPENAL_LIBRARY=/app/lib/libopenal.so
-   - -DOPENAL_VERSION_STRING=1.21.1-BFA
+   - -DOPENAL_VERSION_STRING=1.22.0
   sources:
   - type: git
     url: https://github.com/MadDeCoDeR/Classic-RBDOOM-3-BFG.git
@@ -48,13 +48,15 @@ modules:
     - shared-modules/glew/glew.json
     - shared-modules/glu/glu-9.json
     - ffmpeg.json
-    - openal-beta.json
+    - openal.json
   build-commands:
     - install -Dm 755 DoomBFA /app/bin/DoomBFA
 
 - name: DoomBFA-assets
   buildsystem: simple
   sources:
+  - type: git
+    url: https://github.com/MadDeCoDeR/Classic-RBDOOM-3-BFG.git
   - type: dir
     path: BFA_Assets
   - type: file
