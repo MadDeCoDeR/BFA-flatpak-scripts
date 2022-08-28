@@ -13,6 +13,8 @@ finish-args:
 - --socket=pulseaudio
 - --filesystem=~/.var/app:ro
 - --filesystem=home
+- --filesystem=/run/media
+- --filesystem=/media
 
 cleanup:
 - /include
