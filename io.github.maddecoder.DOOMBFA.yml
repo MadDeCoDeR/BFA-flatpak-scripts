@@ -33,6 +33,8 @@ modules:
    - -DCMAKE_BUILD_TYPE=Retail
    - -DSDL2=ON
    - -DPACKAGED=ON
+   - -DUSE_PRECOMPILED_HEADERS=OFF
+   - -DMAKE_DLL=OFF
    - -DFFMPEG_AVCODEC_INCLUDE_DIR=/app/include
    - -DFFMPEG_LIBAVCODEC=/app/lib/libavcodec.so
    - -DFFMPEG_LIBAVFORMAT=/app/lib/libavformat.so
