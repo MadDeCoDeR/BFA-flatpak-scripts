@@ -45,7 +45,6 @@ modules:
    - -DOPENAL_INCLUDE_DIR=/app/include
    - -DOPENAL_LIBRARY=/app/lib/libopenal.so
    - -DOPENAL_VERSION_STRING=1.22.0
-   - -CMAKE_BUILD_PARALLEL_LEVEL=4
   sources:
   - type: git
     url: https://github.com/MadDeCoDeR/Classic-RBDOOM-3-BFG.git
