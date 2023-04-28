@@ -36,19 +36,14 @@ modules:
    - --preset=linux-retail
    - -B .
    - -DMAKE_DLL=OFF
-   - -DFFMPEG_AVCODEC_INCLUDE_DIR=/app/include
-   - -DFFMPEG_LIBAVCODEC=/app/lib/libavcodec.so
-   - -DFFMPEG_LIBAVFORMAT=/app/lib/libavformat.so
-   - -DFFMPEG_LIBAVUTIL=/app/lib/libavutil.so
-   - -DFFMPEG_LIBSWRESAMPLE=/app/lib/libswresample.so
-   - -DFFMPEG_LIBSWSCALE=/app/lib/libswscale.so
+   - -DPACKAGED=ON
   sources:
   - type: git
     url: https://github.com/MadDeCoDeR/Classic-RBDOOM-3-BFG.git
+    disable-shallow-clone: true
   modules:
     - shared-modules/glew/glew.json
     - shared-modules/glu/glu-9.json
-    - ffmpeg.json
   build-commands:
     - install -Dm 755 DoomBFA /app/bin/DoomBFA
 
