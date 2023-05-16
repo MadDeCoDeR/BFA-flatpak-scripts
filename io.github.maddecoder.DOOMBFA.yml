@@ -46,6 +46,13 @@ modules:
     - shared-modules/glu/glu-9.json
   build-commands:
     - install -Dm 755 DoomBFA /app/bin/DoomBFA
+    - mkdir -p /app/share/third-party-licenses
+    - zip tpl.zip vcpkg_installed/x64-linux/share/*/copyright
+    - mv tpl.zip /app/share
+    - unzip /app/share/tpl.zip -d /app/share/third-party-licenses
+    - mv /app/share/third-party-licenses/vcpkg_installed/x64-linux/share /app/share/third-party-licenses
+    - rm /app/share/tpl.zip
+    - rm -R /app/share/third-party-licenses/vcpkg_installed
 
 - name: DoomBFA-assets
   buildsystem: simple
@@ -68,5 +75,5 @@ modules:
     - mkdir -p /app/share/games/doombfa
     - cp -R base /app/share/games/doombfa/base
     - cp -R base_BFG/* /app/share/games/doombfa/base
-    - install -Dm 644 io.github.maddecoder.Classic-RBDOOM-3-BFG.metainfo.xml /app/share/metainfo
+    - install -Dm 644 io.github.maddecoder.Classic-RBDOOM-3-BFG.metainfo.xml /app/share/metainfo/metainfo.xml
     - install -Dm 755 DOOMBFA.sh /app/bin/DOOMBFA.sh

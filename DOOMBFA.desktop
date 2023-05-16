@@ -6,3 +6,8 @@ Terminal=false
 Type=Application
 Categories=Game;
 PrefersNonDefaultGPU=true
+Actions=show-third-party
+
+[Desktop Action show-third-party]
+Name=Show Third Party Licenses
+Exec=xdg-open /app/share/third-party-licenses
