@@ -6,8 +6,12 @@ Terminal=false
 Type=Application
 Categories=Game;
 PrefersNonDefaultGPU=true
-Actions=show-third-party
+Actions=show-third-party;open-engine
 
 [Desktop Action show-third-party]
 Name=Show Third Party Licenses
-Exec=xdg-open /app/share/third-party-licenses
+Exec=cp -R /app/share/third-party-licenses "$HOME/.doombfa" && xdg-open "$HOME/.doombfa/third-party-licenses"
+
+[Desktop Action open-engine]
+Name=Open without Launcher
+Exec=DOOMBFA.sh -open-engine

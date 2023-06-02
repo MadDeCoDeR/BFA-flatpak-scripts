@@ -5,9 +5,9 @@
   <name>Doom BFA</name>
   <summary>Doom BFA is a Doom 3 BFG GPL source port</summary>
   <project_license>GPL-3.0</project_license>
+  <metadata_license>CC0-1.0</metadata_license>
 
   <developer_name>MadDecoDeR</developer_name>
-  <update_contact>N/A</update_contact>
 
   <url type="help">https://github.com/maddecoder/Classic-RBDOOM-3-BFG/wiki</url>
   <url type="bugtracker">https://github.com/maddecoder/Classic-RBDOOM-3-BFG/issues</url>
@@ -21,11 +21,8 @@
         And the companion .so file on the ~/.doombfa/base/lib folder along side with any additional file that is required</p>
   </description>
 
-  <screenshots>
-  </screenshots>
-
   <releases>
-    <release version="1.2.9" date="TBA"/>
+    <release version="1.3.0" date="2023-06-04"/>
   </releases>
 
   <content_rating type="oars-1.1">

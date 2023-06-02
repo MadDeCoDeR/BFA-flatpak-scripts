@@ -3,7 +3,12 @@ runtime: org.freedesktop.Platform
 sdk: org.freedesktop.Sdk
 runtime-version: "21.08"
 command: DOOMBFA.sh
+sdk-extensions:
+    - org.freedesktop.Sdk.Extension.mono6
 build-options:
+    append-path: /usr/lib/sdk/mono6/bin
+    append-ld-library-path: /usr/lib/sdk/mono6/lib
+    append-pkg-config-path: /usr/lib/sdk/mono6/lib/pkgconfig
     build-args:
     - --share=network
 
@@ -27,6 +32,9 @@ cleanup:
 - /lib/debug
 
 modules:
+- libdecor.yml
+- xdg-util.yml
+- libgdi.yml
 - name: DoomBFA
   buildsystem: cmake
   subdir: neo
@@ -50,9 +58,21 @@ modules:
     - zip tpl.zip vcpkg_installed/x64-linux/share/*/copyright
     - mv tpl.zip /app/share
     - unzip /app/share/tpl.zip -d /app/share/third-party-licenses
-    - mv /app/share/third-party-licenses/vcpkg_installed/x64-linux/share /app/share/third-party-licenses
+    - mv /app/share/third-party-licenses/vcpkg_installed/x64-linux/share/* /app/share/third-party-licenses
     - rm /app/share/tpl.zip
     - rm -R /app/share/third-party-licenses/vcpkg_installed
+
+- name: CDL
+  buildsystem: simple
+  sources:
+  - type: archive
+    url: https://github.com/MadDeCoDeR/CRBDL/releases/download/1.0.1.6-16/CDL.zip
+    sha512: aeaa097167bbf22d87232c8c65222bcd9a56c91795e41b75f726fb1d860bbb37ef233839e6e13d61d0c6b60aabb0ee1d2b691b074562ed18b49fb3478f5c71bd
+  - type: file
+    path: install-mono.sh
+  build-commands:
+  - install -Dm 755 CDL.exe /app/bin/CDL.exe
+  - ./install-mono.sh
 
 - name: DoomBFA-assets
   buildsystem: simple
@@ -62,7 +82,7 @@ modules:
   - type: dir
     path: BFA_Assets
   - type: file
-    path: io.github.maddecoder.Classic-RBDOOM-3-BFG.metainfo.xml
+    path: appdata.xml
   - type: file
     path: DOOMBFA.desktop
   - type: file
@@ -74,6 +94,9 @@ modules:
     - install -Dm 644 doom.png /app/share/icons/hicolor/256x256/apps/${FLATPAK_ID}.png
     - mkdir -p /app/share/games/doombfa
     - cp -R base /app/share/games/doombfa/base
-    - cp -R base_BFG/* /app/share/games/doombfa/base
-    - install -Dm 644 io.github.maddecoder.Classic-RBDOOM-3-BFG.metainfo.xml /app/share/metainfo/metainfo.xml
+    - cp -R base_BFG /app/share/games/doombfa/base_BFG
+    - cp -R base_new /app/share/games/doombfa/base_NEW
+    - mkdir -p /app/share/metainfo
+    - install -Dm 644 appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml
     - install -Dm 755 DOOMBFA.sh /app/bin/DOOMBFA.sh
+    - install -Dm 644 README.md /app/share/third-party-licenses/README.md
