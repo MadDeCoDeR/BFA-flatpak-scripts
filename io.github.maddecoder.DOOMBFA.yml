@@ -15,7 +15,7 @@ build-options:
 finish-args:
 - --device=all
 - --socket=wayland
-- --socket=fallback-x11
+- --socket=x11
 - --share=ipc
 - --share=network
 - --socket=pulseaudio
@@ -66,8 +66,8 @@ modules:
   buildsystem: simple
   sources:
   - type: archive
-    url: https://github.com/MadDeCoDeR/CRBDL/releases/download/1.0.1.6-16/CDL.zip
-    sha512: aeaa097167bbf22d87232c8c65222bcd9a56c91795e41b75f726fb1d860bbb37ef233839e6e13d61d0c6b60aabb0ee1d2b691b074562ed18b49fb3478f5c71bd
+    url: https://github.com/MadDeCoDeR/CRBDL/releases/download/1.0.1.6-17/CDL.zip
+    sha512: e134b7d12126a66cd7c2440a04b2f583806fdbc3a942b209bdbe7734f07354c6cb6144ef3e9d731f146b8c649c3108135682362ec5272eb4446ef40dc800d27f
   - type: file
     path: install-mono.sh
   build-commands:
