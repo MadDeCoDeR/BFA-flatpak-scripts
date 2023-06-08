@@ -61,6 +61,9 @@ modules:
     - mv /app/share/third-party-licenses/vcpkg_installed/x64-linux/share/* /app/share/third-party-licenses
     - rm /app/share/tpl.zip
     - rm -R /app/share/third-party-licenses/vcpkg_installed
+    - mkdir -p /app/share/games/doombfa
+    - cp -R ../../base /app/share/games/doombfa/base
+    - cp -R ../../base_new /app/share/games/doombfa/base_NEW
 
 - name: CDL
   buildsystem: simple
@@ -78,9 +81,7 @@ modules:
   buildsystem: simple
   sources:
   - type: git
-    url: https://github.com/MadDeCoDeR/Classic-RBDOOM-3-BFG.git
-  - type: dir
-    path: BFA_Assets
+    url: https://github.com/MadDeCoDeR/BFA-Assets.git
   - type: file
     path: appdata.xml
   - type: file
@@ -93,9 +94,8 @@ modules:
     - install -Dm 644 DOOMBFA.desktop /app/share/applications/${FLATPAK_ID}.desktop
     - install -Dm 644 doom.png /app/share/icons/hicolor/256x256/apps/${FLATPAK_ID}.png
     - mkdir -p /app/share/games/doombfa
-    - cp -R base /app/share/games/doombfa/base
+    - cp -R base/* /app/share/games/doombfa/base
     - cp -R base_BFG /app/share/games/doombfa/base_BFG
-    - cp -R base_new /app/share/games/doombfa/base_NEW
     - mkdir -p /app/share/metainfo
     - install -Dm 644 appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml
     - install -Dm 755 DOOMBFA.sh /app/bin/DOOMBFA.sh
