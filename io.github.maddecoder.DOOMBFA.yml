@@ -70,8 +70,8 @@ modules:
   buildsystem: simple
   sources:
   - type: archive
-    url: https://github.com/MadDeCoDeR/CRBDL/releases/download/1.0.1.6-20/CDL.zip
-    sha512: e2068a73a7615c470274c21229adc679c4a51d2ca10585991989c3aecc36de52409307af8adfbb31e7ed84d10ab3e7cd85c7c6492bcb1d6d3dc94df826988192
+    url: https://github.com/MadDeCoDeR/CRBDL/releases/download/1.0.1.6-21/CDL.zip
+    sha512: d4866b7fc1b244a8bfd30c61ff6cbccf1db0f5b05e7506741c70c02cabddc52b67fab5d872ba1dd8992135d1930e4b96e89e073e4a381fbbd1202bbc073a7e1e
   - type: file
     path: install-mono.sh
   build-commands:
