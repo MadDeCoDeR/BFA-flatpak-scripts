@@ -21,9 +21,10 @@ finish-args:
 - --socket=pulseaudio
 - --filesystem=~/.var/app:ro
 - --filesystem=home
-- --filesystem=/run/media
-- --filesystem=/media
+- --filesystem=/run/media:ro
+- --filesystem=/media:ro
 - --talk-name=org.freedesktop.Flatpak
+- --talk-name=org.freedesktop.Notifications
 
 cleanup:
 - /include
