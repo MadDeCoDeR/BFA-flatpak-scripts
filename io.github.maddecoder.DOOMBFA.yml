@@ -50,6 +50,7 @@ modules:
   sources:
   - type: git
     url: https://github.com/MadDeCoDeR/Classic-RBDOOM-3-BFG.git
+    tag: 1.3.0-FLP
     disable-shallow-clone: true
   modules:
     - shared-modules/glew/glew.json
