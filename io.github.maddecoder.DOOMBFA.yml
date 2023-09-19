@@ -100,6 +100,6 @@ modules:
     - cp -R base/* /app/share/games/doombfa/base
     - cp -R base_BFG /app/share/games/doombfa/base_BFG
     - mkdir -p /app/share/metainfo
-    - install -Dm 644 appdata.xml /app/share/appdata/${FLATPAK_ID}.appdata.xml
+    - install -Dm 644 appdata.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
     - install -Dm 755 DOOMBFA.sh /app/bin/DOOMBFA.sh
     - install -Dm 644 README.md /app/share/third-party-licenses/README.md
