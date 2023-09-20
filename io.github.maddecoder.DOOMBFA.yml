@@ -9,8 +9,8 @@ build-options:
     append-path: /usr/lib/sdk/mono6/bin
     append-ld-library-path: /usr/lib/sdk/mono6/lib
     append-pkg-config-path: /usr/lib/sdk/mono6/lib/pkgconfig
-    build-args:
-    - --share=network
+    # build-args:
+    # - --share=network
 
 finish-args:
 - --device=all
@@ -23,15 +23,18 @@ finish-args:
 - --filesystem=home
 - --filesystem=/run/media:ro
 - --filesystem=/media:ro
-- --talk-name=org.freedesktop.Flatpak
-- --talk-name=org.freedesktop.Notifications
+# - --talk-name=org.freedesktop.Flatpak
+# - --talk-name=org.freedesktop.Notifications
 
 cleanup:
 - /include
 - /lib/*.a
 - /lib/*.la
 - /lib/pkgconfig
+- /lib/cmake
 - /lib/debug
+- /share/man
+- /share/doc
 
 modules:
 - libdecor.yml
@@ -47,23 +50,57 @@ modules:
    - -B .
    - -DMAKE_DLL=OFF
    - -DPACKAGED=ON
+   - -DUSE_VCPKG=OFF
+   - -DALL_STATIC=OFF
+   - -DFFMPEG_FOUND=true
+   - -DFFMPEG_AVCODEC_INCLUDE_DIR=/app/include
+   - -DFFMPEG_LIBAVCODEC=/app/lib/libavcodec.so
+   - -DFFMPEG_LIBAVFORMAT=/app/lib/libavformat.so
+   - -DFFMPEG_LIBAVUTIL=/app/lib/libavutil.so
+   - -DFFMPEG_LIBSWRESAMPLE=/app/lib/libswresample.so
+   - -DFFMPEG_LIBSWSCALE=/app/lib/libswscale.so
+   - -DOPENAL_FOUND=true
+   - -DOPENAL_INCLUDE_DIR=/app/include
+   - -DOPENAL_LIBRARY=/app/lib/libopenal.so
+   - -DOPENAL_VERSION_STRING=1.23.1
+   - -DUSE_SYSTEM_ZLIB=false
+   - -DZLIB_FOUND=true
+   - -DZLIB_INCLUDE_DIRS=/app/include
+   - -DZLIB_LIBRARIES=/app/lib/libz.so
+   - -DUSE_SYSTEM_LIBPNG=false
+   - -DPNG_FOUND=true
+   - -DPNG_INCLUDE_DIRS=/app/include
+   - -DPNG_LIBRARIES=/app/lib/libpng.so
+   - -DUSE_SYSTEM_LIBJPEG=false
+   - -DJPEG_FOUND=true
+   - -DJPEG_INCLUDE_DIRS=/app/include
+   - -DJPEG_LIBRARIES=/app/lib64/libjpeg.so
+   - -DSDL2_INCLUDE_DIR=/app/include/SDL2
+   - -DSDL2_LIBRARY=/app/lib/libSDL2.so;/app/lib/libSDL2main.a
   sources:
   - type: git
     url: https://github.com/MadDeCoDeR/Classic-RBDOOM-3-BFG.git
-    tag: 1.3.0-FLP
-    disable-shallow-clone: true
+    commit: 2fa4c8abfa4b0d76c708718c94558820877450b7
+    disable-submodules: true
   modules:
     - shared-modules/glew/glew.json
     - shared-modules/glu/glu-9.json
+    - shared-modules/SDL2/SDL2-with-libdecor.json
+    - openal.json
+    - ffmpeg.json
+    - zlib.json
+    - libpng.json
+    - libjpeg-turbo.json
+    - rapidjson.json
   build-commands:
     - install -Dm 755 DoomBFA /app/bin/DoomBFA
-    - mkdir -p /app/share/third-party-licenses
-    - zip tpl.zip vcpkg_installed/x64-linux/share/*/copyright
-    - mv tpl.zip /app/share
-    - unzip /app/share/tpl.zip -d /app/share/third-party-licenses
-    - mv /app/share/third-party-licenses/vcpkg_installed/x64-linux/share/* /app/share/third-party-licenses
-    - rm /app/share/tpl.zip
-    - rm -R /app/share/third-party-licenses/vcpkg_installed
+    # - mkdir -p /app/share/third-party-licenses
+    # - zip tpl.zip vcpkg_installed/x64-linux/share/*/copyright
+    # - mv tpl.zip /app/share
+    # - unzip /app/share/tpl.zip -d /app/share/third-party-licenses
+    # - mv /app/share/third-party-licenses/vcpkg_installed/x64-linux/share/* /app/share/third-party-licenses
+    # - rm /app/share/tpl.zip
+    # - rm -R /app/share/third-party-licenses/vcpkg_installed
     - mkdir -p /app/share/games/doombfa
     - cp -R ../../base /app/share/games/doombfa/base
     - cp -R ../../base_new /app/share/games/doombfa/base_NEW
@@ -102,4 +139,4 @@ modules:
     - mkdir -p /app/share/metainfo
     - install -Dm 644 appdata.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
     - install -Dm 755 DOOMBFA.sh /app/bin/DOOMBFA.sh
-    - install -Dm 644 README.md /app/share/third-party-licenses/README.md
+    # - install -Dm 644 README.md /app/share/third-party-licenses/README.md

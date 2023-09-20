@@ -9,11 +9,13 @@
     {
         "type": "git",
         "url": "https://github.com/kcat/openal-soft.git",
-        "tag": "1.22.0"
+        "tag": "1.23.1",
+        "commit": "d3875f333fb6abe2f39d82caca329414871ae53b"
     }
     ],
     "cleanup": [
         "/bin/al*",
-        "/bin/openal*"
+        "/bin/openal*",
+        "/lib/cmake/OpenAL"
     ]
 }
