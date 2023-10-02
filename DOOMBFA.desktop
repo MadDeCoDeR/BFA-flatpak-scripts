@@ -8,10 +8,6 @@ Categories=Game;
 PrefersNonDefaultGPU=true
 Actions=show-third-party;open-launcher;open-save-folder
 
-[Desktop Action show-third-party]
-Name=Show Third Party Licenses
-Exec=cp -R /app/share/third-party-licenses "\\$HOME/.doombfa" && xdg-open "\\$HOME/.doombfa/third-party-licenses"
-
 [Desktop Action open-launcher]
 Name=Open Launcher
 Exec=DOOMBFA.sh -open-launcher
