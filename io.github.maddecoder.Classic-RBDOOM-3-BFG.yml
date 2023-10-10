@@ -1,7 +1,7 @@
 app-id: io.github.maddecoder.Classic-RBDOOM-3-BFG
 runtime: org.freedesktop.Platform
 sdk: org.freedesktop.Sdk
-runtime-version: "22.08"
+runtime-version: "23.08"
 command: DOOMBFA.sh
 sdk-extensions:
     - org.freedesktop.Sdk.Extension.mono6
@@ -17,8 +17,11 @@ finish-args:
 - --share=ipc
 - --share=network
 - --socket=pulseaudio
-- --filesystem=~/.var/app:ro
-- --filesystem=home
+- --filesystem=~/.var/app/com.valvesoftware.Steam:ro
+- --filesystem=~/.var/app/net.lutris.Lutris:ro
+- --filesystem=~/.var/app/com.heroicgameslauncher.hgl:ro
+- --persist=.doombfa
+- --filesystem=home:ro
 - --filesystem=/run/media:ro
 - --filesystem=/media:ro
 
@@ -28,15 +31,58 @@ cleanup:
 - /lib/*.la
 - /lib/pkgconfig
 - /lib/cmake
-- /lib/debug
 - /share/man
 - /share/doc
+- /share/ffmpeg
+- /bin/al*
+- /bin/openal*
+- /lib/cmake/OpenAL
+- /bin/flatpak-spawn
+- /bin/xdg-email
 
 modules:
-- xdg-util.yml
-- libgdi.yml
+- name: xdg-utils
+  buildsystem: meson
+  sources:
+    - type: git
+      url: https://github.com/flatpak/flatpak-xdg-utils.git
+      tag: 1.0.5
+      commit: 5ba39872f81bf8d98d58c5f8acb86604645be468
+- name: libgdiplus
+  buildsystem: autotools
+  sources:
+    - type: archive
+      url: https://download.mono-project.com/sources/libgdiplus/libgdiplus-6.1.tar.gz
+      sha256: 97d5a83d6d6d8f96c27fb7626f4ae11d3b38bc88a1726b4466aeb91451f3255b
+- name: FFMPEG
+  no-autogen: true  
+  config-opts:
+   - --disable-x86asm
+   - --enable-shared
+   - --disable-large-tests
+   - --enable-linux-perf
+   - --disable-debug
+   - --disable-programs
+   - --quiet
+  sources:
+  - type: git
+    url: https://github.com/FFmpeg/FFmpeg.git
+    tag: n5.1.3
+    commit: 963937e408fc68b5925f938a253cfff1d506f784
+  - type: patch
+    path: ffmpeg-binutils.patch
+- name: OpenAL-Soft
+  buildsystem: cmake-ninja
+  no-autogen: true
+  config-opts:
+   - -DCMAKE_BUILD_TYPE=Release
+  sources:
+  - type: git
+    url: https://github.com/kcat/openal-soft.git
+    tag: "1.23.1"
+    commit: d3875f333fb6abe2f39d82caca329414871ae53b
 - name: DoomBFA
-  buildsystem: cmake
+  buildsystem: cmake-ninja
   subdir: neo
   builddir: true
   no-make-install: true
@@ -58,35 +104,19 @@ modules:
    - -DOPENAL_INCLUDE_DIR=/app/include
    - -DOPENAL_LIBRARY=/app/lib/libopenal.so
    - -DOPENAL_VERSION_STRING=1.23.1
-   - -DUSE_SYSTEM_ZLIB=false
-   - -DZLIB_FOUND=true
-   - -DZLIB_INCLUDE_DIRS=/app/include
-   - -DZLIB_LIBRARIES=/app/lib/libz.so
    - -DUSE_SYSTEM_LIBPNG=false
-   - -DPNG_FOUND=true
-   - -DPNG_INCLUDE_DIRS=/app/include
-   - -DPNG_LIBRARIES=/app/lib/libpng.so
-   - -DUSE_SYSTEM_LIBJPEG=false
-   - -DJPEG_FOUND=true
-   - -DJPEG_INCLUDE_DIRS=/app/include
-   - -DJPEG_LIBRARIES=/app/lib64/libjpeg.so
    - -DSDL2_INCLUDE_DIR=/app/include/SDL2
    - -DSDL2_LIBRARY=/app/lib/libSDL2.so;/app/lib/libSDL2main.a
+   - -DUSE_SYSTEM_RAPIDJSON=false
   sources:
   - type: git
     url: https://github.com/MadDeCoDeR/Classic-RBDOOM-3-BFG.git
-    commit: 9044c7b78a015325b7ead958b026fbad66643458
+    commit: ef28cf7e85b6b2eabce4a13d2b67a628c3e43a62
     disable-submodules: true
   modules:
     - shared-modules/glew/glew.json
     - shared-modules/glu/glu-9.json
     - shared-modules/SDL2/SDL2-with-libdecor.json
-    - openal.json
-    - ffmpeg.json
-    - zlib.json
-    - libpng.json
-    - libjpeg-turbo.json
-    - rapidjson.json
   build-commands:
     - install -Dm 755 DoomBFA /app/bin/DoomBFA
     - mkdir -p /app/share/games/doombfa
@@ -109,12 +139,19 @@ modules:
   buildsystem: simple
   sources:
   - type: extra-data
-    filename: BFA-Assets-1.3.0.zip
-    url: https://github.com/MadDeCoDeR/BFA-Assets/releases/download/1.3.0/BFA-Assets-1.3.0.zip
-    sha256: 094f85bdc5355bcc8701b37d3dee462da672a9d29405396b80abb2e0adc5d5ad
-    size: 169865
+    filename: BFA-Assets.zip
+    url: https://github.com/MadDeCoDeR/BFA-Assets/releases/download/1.3.0/BFA-Assets.zip
+    sha256: 42901b1024dd236a5513c77920752337f63f15fd8f4810d344a98d0133a775c3
+    size: 172365
+    x-checker-data:
+      type: json
+      url:  https://api.github.com/repos/MadDeCoDeR/BFA-Assets/releases/latest
+      tag-query: .tag_name
+      version-query: $tag
+      timestamp-query: .published_at
+      url-query: .assets[] | .browser_download_url
   - type: file
-    path: appdata.xml
+    path: Classic-RBDOOM-3-BFG.appdata.xml
   - type: file
     path: DOOMBFA.desktop
   - type: file
@@ -125,8 +162,7 @@ modules:
     path: apply_extra.sh
   build-commands:
     - install -Dm 644 DOOMBFA.desktop /app/share/applications/${FLATPAK_ID}.desktop
-    - install -Dm 644 doom.png /app/share/icons/hicolor/256x256/apps/${FLATPAK_ID}.png
+    - install -Dm 644 doom.png /app/share/icons/hicolor/128x128/apps/${FLATPAK_ID}.png
     - install -Dm 755 apply_extra.sh /app/bin/apply_extra
-    - mkdir -p /app/share/metainfo
-    - install -Dm 644 appdata.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
+    - install -Dm 644 Classic-RBDOOM-3-BFG.appdata.xml /app/share/metainfo/${FLATPAK_ID}.metainfo.xml
     - install -Dm 755 DOOMBFA.sh /app/bin/DOOMBFA.sh

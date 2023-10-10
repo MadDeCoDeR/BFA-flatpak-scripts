@@ -6,7 +6,7 @@ Terminal=false
 Type=Application
 Categories=Game;
 PrefersNonDefaultGPU=true
-Actions=show-third-party;open-launcher;open-save-folder
+Actions=open-launcher;open-save-folder
 
 [Desktop Action open-launcher]
 Name=Open Launcher
@@ -14,4 +14,4 @@ Exec=DOOMBFA.sh -open-launcher
 
 [Desktop Action open-save-folder]
 Name=Open Save Folder
-Exec=mkdir -p "\\$HOME/.doombfa/" && xdg-open "\\$HOME/.doombfa/"
+Exec=DOOMBFA.sh -open-save-folder
